@@ -20,10 +20,11 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Input() pageSize!: number;
   @Input() current!: number;
   @Input() totalItem!: number;
+  @Input() totalPage!: number;
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   private start = 1;
-  pageArray: number[] = []; // Initialize as empty array
+  pageArray: (number | undefined)[] = []; // Initialize as empty array
   pageCount = 0; // Initialize as 0
 
   ngOnInit(): void {
@@ -63,40 +64,19 @@ export class PaginationComponent implements OnInit, OnChanges {
       const endPage = Math.min(startPage + 9, this.pageCount);
       const length = endPage - startPage + 1;
 
-      this.pageArray = Array.from({ length }, (_, index) => startPage + index);
-      // if (this.current < 10) {
-      //   this.pageArray = Array.from(
-      //     { length: Math.min(10, this.pageCount) },
-      //     (_, index) => this.start + index
-      //   );
-      // } else if (this.current % 10 === 0) {
-      //   this.start = (Math.floor(this.current / 10) - 1) * 10 + 1;
-      //   this.pageArray = Array.from(
-      //     { length: 10 },
-      //     (_, index) => this.start + index
-      //   );
-      // } else if (
-      //   Math.floor(this.current / 10) === Math.floor(this.pageCount / 10)
-      // ) {
-      //   this.start = Math.floor(this.current / 10) * 10 + 1;
-      //   const length = this.pageCount % 10 || 10;
-      //   this.pageArray = Array.from(
-      //     { length },
-      //     (_, index) => this.start + index
-      //   );
-      // } else {
-      //   this.start = Math.floor(this.current / 10) * 10 + 1;
-      //   this.pageArray = Array.from(
-      //     { length: 10 },
-      //     (_, index) => this.start + index
-      //   );
-      // }
+      this.pageArray = Array.from({ length }, (_, index) => {
+        if (startPage + index <= this.totalPage) {
+          return startPage + index;
+        } else {
+          return;
+        }
+      });
     }
   }
 
-  handleClick(item: number) {
+  handleClick(item: number | undefined) {
     // dealing with  route.puss('...?page=item')
-    if (item !== this.current && item > 0 && item <= this.pageCount) {
+    if (item && item !== this.current && item > 0 && item <= this.pageCount) {
       this.navigateToPage(item);
     }
   }
