@@ -1,0 +1,26 @@
+<a [routerLink]="'/products/' + id">
+  <div class="shadow-lg rounded-lg overflow-hidden">
+    <swiper-container>
+      <swiper-slide *ngFor="let image of imageUrls"
+        ><img [src]="image" alt="name" class="w-full object-cover h-[240px]"
+      /></swiper-slide>
+    </swiper-container>
+    <div class="p-2">
+      <p class="font-medium text-lg">{{ name }}</p>
+      <p class="text-gray-500">{{ tagline }}</p>
+      <div class="flex justify-between items-center">
+        <p>{{ price | currency }} per night</p>
+        <div class="flex gap-2">
+          <p>{{ country }}</p>
+          <img
+            [src]="
+              'https://flagcdn.com/' + country.toLocaleLowerCase() + '.svg'
+            "
+            alt="flag"
+            class="w-[30px] h-[24px]"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
