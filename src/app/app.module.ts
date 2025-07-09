@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { HeaderComponent } from './components/header/header.component';
-import { CartComponent } from './components/cart/cart.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,13 @@ import { CartComponent } from './components/cart/cart.component';
     ProductDetailComponent,
     ShoppingCartComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HeaderComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HeaderComponent,
+    MatIconModule,
+  ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent],
 })

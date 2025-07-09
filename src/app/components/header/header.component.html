@@ -1,7 +1,19 @@
-<header class="max-w-7xl mx-auto border p-10 flex justify-between">
-  <nav class="flex gap-x-4">
-    <a routerLink="/">icon - home</a>
-    <a routerLink="/about">About us</a>
+<header class="max-w-7xl mx-auto border p-6 flex justify-between items-center">
+  <a routerLink="/"
+    ><mat-icon
+      class="text-gray-800"
+      style="font-size: 40px; width: 40px; height: 40px"
+      >home</mat-icon
+    ></a
+  >
+  <nav class="flex gap-x-6">
+    <a
+      routerLink="/"
+      routerLinkActive="text-orange-600"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+    <a routerLink="/about-us" routerLinkActive="text-orange-600">About us</a>
   </nav>
   <app-cart />
 </header>
