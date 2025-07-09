@@ -1,0 +1,47 @@
+<section
+  class="mx-auto mt-28 mb-8 flex justify-center items-center gap-4 w-full"
+>
+  <button
+    *ngIf="current > 10"
+    class="hover:underline text-blue-600 capitalize"
+    (click)="toFirstPage()"
+  >
+    1
+  </button>
+
+  <button
+    class="p-2 rounded-full hover:bg-slate-400 disabled:bg-gray-100 disabled:hover:bg-gray-100"
+    [disabled]="current == 1"
+    (click)="handlePrevPage()"
+  >
+    <mat-icon class="relative top-1">arrow_back</mat-icon>
+  </button>
+
+  <ul class="flex items-center">
+    <li *ngFor="let item of pageArray">
+      <button
+        (click)="handleClick(item)"
+        class="p-[0.8rem] rounded-full hover:bg-slate-200"
+        [class.bg-blue-400]="item == current"
+      >
+        {{ item }}
+      </button>
+    </li>
+  </ul>
+
+  <button
+    (click)="handleNextPage()"
+    class="p-2 rounded-full hover:bg-slate-400 disabled:bg-gray-100 disabled:hover:bg-gray-100"
+    [disabled]="current == pageCount"
+  >
+    <mat-icon class="relative top-1">arrow_forward</mat-icon>
+  </button>
+
+  <button
+    (click)="toLastPage()"
+    *ngIf="pageCount > 10 && current !== pageCount"
+    class="hover:underline text-blue-600 capitalize"
+  >
+    {{ pageCount }}
+  </button>
+</section>

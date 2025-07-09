@@ -17,6 +17,7 @@ import { NavItemComponent } from './components/header/nav-item/nav-item.componen
 import { HttpClientModule } from '@angular/common/http';
 import { ProductCardComponent } from './components/products/product-card/product-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PaginationComponent } from './components/products/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HttpClientModule,
     ProductCardComponent,
     FooterComponent,
+    PaginationComponent,
   ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent],

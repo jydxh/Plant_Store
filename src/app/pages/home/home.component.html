@@ -1,6 +1,4 @@
-<section
-  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto max-w-[1280px] gap-4 px-4"
->
+<section class="max-w-[1280px] mx-auto">
   <div
     *ngIf="isLoading"
     class="mx-auto flex justify-center text-center w-full h-[90vh]"
@@ -15,13 +13,27 @@
     {{ error }}
   </div>
 
-  <app-product-card
-    *ngFor="let product of productsResponse?.data?.data"
-    [id]="product.id"
-    [country]="product.country"
-    [name]="product.name"
-    [price]="product.price"
-    [tagline]="product.tagline"
-    [imageUrls]="getImageUrls(product.image)"
-  />
+  <div
+    *ngIf="productsResponse"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto gap-4 px-4 max-w-[1280px]"
+  >
+    <app-product-card
+      *ngFor="let product of productsResponse.data.data"
+      [id]="product.id"
+      [country]="product.country"
+      [name]="product.name"
+      [price]="product.price"
+      [tagline]="product.tagline"
+      [imageUrls]="getImageUrls(product.image)"
+    />
+
+    <!-- pagination part -->
+    <div class="col-span-full">
+      <app-pagination
+        [current]="+productsResponse.data.currentPage"
+        [pageSize]="+productsResponse.data.data.length"
+        [totalItem]="+productsResponse.data.totalCount"
+      />
+    </div>
+  </div>
 </section>
