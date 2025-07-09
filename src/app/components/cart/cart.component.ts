@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -8,4 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./cart.component.css'],
   imports: [MatIconModule],
 })
-export class CartComponent {}
+export class CartComponent {
+  constructor(private router: Router) {}
+
+  directToCartPage() {
+    console.log('clicked');
+    this.router.navigate(['/cart']);
+  }
+}
