@@ -1,7 +1,20 @@
 <section
   class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto max-w-[1280px] gap-4 px-4"
 >
-  <!-- {{ productsResponse?.data?.data }} -->
+  <div
+    *ngIf="isLoading"
+    class="mx-auto flex justify-center text-center w-full h-[90vh]"
+  >
+    <p class="ml-3 text-lg text-gray-600">Loading products...</p>
+  </div>
+
+  <div
+    *ngIf="error && !isLoading"
+    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+  >
+    {{ error }}
+  </div>
+
   <app-product-card
     *ngFor="let product of productsResponse?.data?.data"
     [id]="product.id"

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FetchedProductsResponse } from 'src/app/services/product.module';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -7,69 +9,47 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   productsResponse: FetchedProductsResponse | undefined = undefined;
-  getImageUrls(images: { id: string; propertyId: string; imageUrl: string }[]) {
-    return images.map((img) => img.imageUrl);
-  }
-  object = {
-    id: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-    name: 'Demo property',
-    tagline: 'city of london',
-    price: 123,
-    country: 'CA',
-    latLng: '{"lat":42.9825319,"lng":-81.25423669999999}',
-    amenities: [
-      {
-        propertyId: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-        amenitiesId: '107',
-      },
-      {
-        propertyId: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-        amenitiesId: '108',
-      },
-      {
-        propertyId: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-        amenitiesId: '110',
-      },
-      {
-        propertyId: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-        amenitiesId: '113',
-      },
-      {
-        propertyId: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-        amenitiesId: '114',
-      },
-      {
-        propertyId: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-        amenitiesId: '119',
-      },
-    ],
-    image: [
-      {
-        id: '585298e7-68ac-48ce-b759-bfa8ee78ab2e',
-        propertyId: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-        imageUrl:
-          'https://res.cloudinary.com/dudordakm/image/upload/v1740153172/Airbnb/skkztwyg6fekjpgyseug.jpg',
-      },
-      {
-        id: '6dcadb8c-79cf-4eb5-b730-3096f2087a9d',
-        propertyId: '5b740225-29c2-48d6-90a1-1fb6ef247334',
-        imageUrl:
-          'https://res.cloudinary.com/dudordakm/image/upload/v1740153172/Airbnb/jmvgdri2d5mfki1m3dvw.jpg',
-      },
-    ],
-  };
+  isLoading = false;
+  error: string | null = null;
+  currentPage = 1;
+  private subscription: Subscription = new Subscription();
 
-  constructor(public productService: ProductService) {
-    this.productService.fetchProducts().subscribe({
+  constructor(
+    public productService: ProductService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.subscription.add(
+      this.route.queryParams.subscribe((params) => {
+        this.currentPage = +params['page'] || 1;
+        this.loadProducts();
+      })
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  loadProducts() {
+    this.isLoading = true;
+    this.error = null;
+    this.productService.fetchProducts(this.currentPage).subscribe({
       next: (data) => {
         console.log('products: ', data);
         this.productsResponse = data;
+        this.isLoading = false;
       },
       error: (error) => {
         console.log(error);
+        this.error = 'failed to load data';
+        this.isLoading = false;
       },
     });
+  }
+  getImageUrls(images: { id: string; propertyId: string; imageUrl: string }[]) {
+    return images.map((img) => img.imageUrl);
   }
 }

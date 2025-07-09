@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 import { FetchedProductsResponse } from './product.module';
@@ -18,9 +22,10 @@ export class ProductService {
 
   // fetch products logic
 
-  fetchProducts(): Observable<FetchedProductsResponse> {
+  fetchProducts(page: number = 1): Observable<FetchedProductsResponse> {
+    const params = new HttpParams().set('page', page.toString());
     return this.http
-      .get<FetchedProductsResponse>(this.API_URL + '/products')
+      .get<FetchedProductsResponse>(this.API_URL + '/products', { params })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.log(error);
