@@ -33,7 +33,12 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['current'] || changes['pageSize'] || changes['totalItem']) {
+    if (
+      changes['current'] ||
+      changes['pageSize'] ||
+      changes['totalItem'] ||
+      changes['totalPage']
+    ) {
       this.calculatePagination();
     }
   }
@@ -41,6 +46,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   private calculatePagination(): void {
     if (!this.pageSize || !this.totalItem || !this.current) return;
     this.pageCount = Math.ceil(this.totalItem / this.pageSize);
+    // console.log('pageCount:', this.pageCount);
     this.calculatePageArray();
   }
 
@@ -61,9 +67,9 @@ export class PaginationComponent implements OnInit, OnChanges {
     } else {
       const currentGroup = Math.floor((this.current - 1) / 10);
       const startPage = currentGroup * 10 + 1;
-      const endPage = Math.min(startPage + 9, this.pageCount);
+      const endPage = Math.min(startPage + 9, this.totalPage);
       const length = endPage - startPage + 1;
-
+      // console.log('length: ', length);
       this.pageArray = Array.from({ length }, (_, index) => {
         if (startPage + index <= this.totalPage) {
           return startPage + index;
@@ -88,8 +94,8 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
   }
   toLastPage() {
-    if (this.current !== this.pageCount) {
-      this.navigateToPage(this.pageCount);
+    if (this.current !== this.totalPage) {
+      this.navigateToPage(this.totalPage);
     }
   }
   handleNextPage() {

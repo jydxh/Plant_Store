@@ -39,9 +39,9 @@
 
   <button
     (click)="toLastPage()"
-    *ngIf="pageCount > 10 && current !== pageCount"
+    *ngIf="totalPage > 10 && current !== totalPage"
     class="hover:underline text-blue-600 capitalize"
   >
-    {{ pageCount }}
+    {{ totalPage }}
   </button>
 </section>
