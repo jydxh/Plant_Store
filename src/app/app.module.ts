@@ -8,6 +8,11 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { FormsModule } from '@angular/forms';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+import { HeaderComponent } from './components/header/header.component';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +21,9 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     AboutUsComponent,
     ProductDetailComponent,
     ShoppingCartComponent,
-    PageNotFoundComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HeaderComponent],
+  providers: [provideRouter(routes)],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
