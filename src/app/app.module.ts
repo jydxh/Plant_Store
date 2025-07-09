@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavItemComponent } from './components/header/nav-item/nav-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductCardComponent } from './components/products/product-card/product-card.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ProductCardComponent } from './components/products/product-card/product
     NavItemComponent,
     HttpClientModule,
     ProductCardComponent,
+    FooterComponent,
   ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent],
