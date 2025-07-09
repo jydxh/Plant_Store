@@ -1,4 +1,4 @@
-<header class="max-w-7xl mx-auto border p-6 flex justify-between items-center">
+<header class="max-w-7xl mx-auto p-6 flex justify-between items-center">
   <a routerLink="/"
     ><mat-icon
       class="text-gray-800"
@@ -6,14 +6,13 @@
       >home</mat-icon
     ></a
   >
-  <nav class="flex gap-x-6 items-center">
-    <a
-      routerLink="/"
-      routerLinkActive="text-orange-600"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >Home</a
-    >
-    <a routerLink="/about-us" routerLinkActive="text-orange-600">About us</a>
+  <nav class="flex gap-x-6 items-center font">
+    <app-nav-item
+      *ngFor="let item of NavLinks"
+      [exact]="item.exact ?? false"
+      [href]="item.href"
+      [name]="item.name"
+    />
   </nav>
   <app-cart />
 </header>

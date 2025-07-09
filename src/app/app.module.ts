@@ -13,12 +13,13 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { HeaderComponent } from './components/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
+import { NavItemComponent } from './components/header/nav-item/nav-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AboutUsComponent,
+
     ProductDetailComponent,
     ShoppingCartComponent,
   ],
@@ -28,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     HeaderComponent,
     MatIconModule,
+    NavItemComponent,
   ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent],
