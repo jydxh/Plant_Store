@@ -5,4 +5,83 @@
   >
     <p class="ml-3 text-lg text-gray-600">Loading product details...</p>
   </div>
+
+  <div *ngIf="product" class="px-2">
+    <!-- title -->
+    <h1 class="w-full text-center mx-auto font-medium text-2xl py-4">
+      {{ product.name }}
+    </h1>
+
+    <!-- carousel images -->
+    <swiper-container
+      slides-per-view="1"
+      space-between="10"
+      pagination="true"
+      navigation="true"
+      breakpoints='{"768": {"slidesPerView": 2, "spaceBetween": 30}}'
+    >
+      <swiper-slide *ngFor="let image of imageUrls"
+        ><img [src]="image" alt="name" class="w-full object-cover h-[480px]"
+      /></swiper-slide>
+    </swiper-container>
+    <hr class="my-4" />
+    <!-- Country and Flag -->
+    <div class="flex gap-x-4 items-center">
+      <p class="text-lg font-medium">{{ getCountryName }}</p>
+      <img
+        [src]="'https://flagcdn.com/' + product.country.toLowerCase() + '.svg'"
+        [alt]="getCountryName + 'flag'"
+        class="w-[45px] h-[30px]"
+      />
+    </div>
+    <!-- property info -->
+    <div class="flex gap-x-4">
+      <p>{{ getBedRoom }}</p>
+      <p>{{ getBath }}</p>
+      <p>{{ getGuest }}</p>
+    </div>
+    <div>
+      <p class="flex items-center gap-x-2">
+        Rating: <mat-icon class="text-yellow-500">star</mat-icon>
+        <span>{{ product.rating.rating }} ({{ product.rating.count }})</span>
+      </p>
+    </div>
+    <!-- host info -->
+
+    <div class="mt-4 flex gap-x-4">
+      <img
+        [src]="product.user.profileImage"
+        alt="host avatar"
+        class="w-[60px] h-[60px] rounded-full object-cover"
+      />
+      <div>
+        <p class="text-lg font-medium">Hosted by {{ product.user.userName }}</p>
+        <p class="font-light">
+          SuperHost &middot; {{ getHostingTime }} Hosting
+        </p>
+      </div>
+    </div>
+    <hr class="my-4" />
+
+    <!-- description -->
+    <h2 class="font-medium text-xl mb-2">Description</h2>
+    <article class="tracking-wide font-light max-w-screen-lg">
+      {{ product.description }}
+    </article>
+
+    <!-- location -->
+    <hr class="my-4" />
+    <h2 class="font-medium text-xl mb-2">Location</h2>
+    <p>{{ product.address }}</p>
+
+    <hr class="my-4" />
+    <!-- add to cart button -->
+    <div class="flex justify-start md:justify-center">
+      <button
+        class="mb-4 w-full md:w-1/2 md:mx-auto bg-orange-500 px-2 py-2 rounded-lg text-white hover:bg-orange-400"
+      >
+        Add to Cart
+      </button>
+    </div>
+  </div>
 </section>

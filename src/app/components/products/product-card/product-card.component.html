@@ -1,6 +1,6 @@
 <a [routerLink]="'/products/' + id">
   <div class="shadow-lg rounded-lg overflow-hidden">
-    <swiper-container>
+    <swiper-container slides-per-view="1" space-between="10" pagination="true">
       <swiper-slide *ngFor="let image of imageUrls"
         ><img [src]="image" alt="name" class="w-full object-cover h-[240px]"
       /></swiper-slide>

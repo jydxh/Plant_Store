@@ -20,12 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PaginationComponent } from './components/products/pagination/pagination.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ProductDetailComponent,
-    ShoppingCartComponent,
-  ],
+  declarations: [AppComponent, HomeComponent, ShoppingCartComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,6 +32,7 @@ import { PaginationComponent } from './components/products/pagination/pagination
     ProductCardComponent,
     FooterComponent,
     PaginationComponent,
+    ProductDetailComponent,
   ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent],
