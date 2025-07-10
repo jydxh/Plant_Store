@@ -1,1 +1,8 @@
-<p>product-detail works!</p>
+<section class="max-w-[1280px] mx-auto">
+  <div
+    *ngIf="isLoading"
+    class="mx-auto flex justify-center text-center w-full h-[90vh]"
+  >
+    <p class="ml-3 text-lg text-gray-600">Loading product details...</p>
+  </div>
+</section>

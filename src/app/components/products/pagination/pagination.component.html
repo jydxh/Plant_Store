@@ -10,7 +10,7 @@
   </button>
 
   <button
-    class="p-2 rounded-full hover:bg-slate-400 disabled:bg-gray-100 disabled:hover:bg-gray-100"
+    class="sm:w-10 sm:h-10 w-8 h-8 rounded-full hover:bg-slate-400 disabled:bg-gray-100 disabled:hover:bg-gray-100"
     [disabled]="current == 1"
     (click)="handlePrevPage()"
   >
@@ -21,7 +21,7 @@
     <li *ngFor="let item of pageArray">
       <button
         (click)="handleClick(item)"
-        class="p-[0.8rem] rounded-full hover:bg-slate-200"
+        class="w-6 h-6 sm:w-10 sm:h-10 rounded-full hover:bg-slate-200"
         [class.bg-blue-400]="item == current"
       >
         {{ item }}
@@ -31,7 +31,7 @@
 
   <button
     (click)="handleNextPage()"
-    class="p-2 rounded-full hover:bg-slate-400 disabled:bg-gray-100 disabled:hover:bg-gray-100"
+    class="sm:w-10 sm:h-10 w-8 h-8 rounded-full hover:bg-slate-400 disabled:bg-gray-100 disabled:hover:bg-gray-100"
     [disabled]="current == pageCount"
   >
     <mat-icon class="relative top-1">arrow_forward</mat-icon>
