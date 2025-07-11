@@ -53,7 +53,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.cartService.getCartItems().subscribe((value) => {
         this.cartItems = value;
-        console.log('cart items subscription:', value);
+        // console.log('cart items subscription:', value);
       })
     );
   }
@@ -66,7 +66,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     this.productService.fetchProductById(id).subscribe({
       next: (data) => {
-        console.log('product: ', data);
+        // console.log('product: ', data);
         this.product = data.data;
         this.isLoading = false;
       },
@@ -124,7 +124,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     const cartQuantity = this.cartItems.find(
       (item) => item.productId === this.product?.id
     )?.quantity;
-    console.log('cartQuantity: ', cartQuantity);
+    // console.log('cartQuantity: ', cartQuantity);
     if (cartQuantity !== undefined) {
       return cartQuantity >= 9;
     } else {

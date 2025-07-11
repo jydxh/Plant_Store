@@ -6,7 +6,20 @@ import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-  public cartItems = new BehaviorSubject<CartItem[]>([]);
+  public cartItems = new BehaviorSubject<CartItem[]>([
+    {
+      name: 'Mountain Retreat',
+      price: 656,
+      productId: '789ca087-627a-4fe8-a049-de88b04033b4',
+      quantity: 3,
+    },
+    {
+      name: 'Luxury Penthouse',
+      price: 71,
+      productId: 'e9704a11-7084-4af8-9478-eec877a1bd03',
+      quantity: 3,
+    },
+  ]);
   constructor() {}
   private maxQuantity = 9;
   private minQuantity = 1;
