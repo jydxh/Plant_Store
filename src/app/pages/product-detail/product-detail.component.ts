@@ -8,6 +8,8 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CartItem } from 'src/app/services/cart.module';
+import { CartService } from 'src/app/services/cart.service';
 import { CountryService } from 'src/app/services/country.service';
 import { Property } from 'src/app/services/product.module';
 import { ProductService } from 'src/app/services/product.service';
@@ -27,6 +29,8 @@ register();
 export class ProductDetailComponent implements OnInit, OnDestroy {
   product: Property | undefined = undefined;
   isLoading = false;
+  cartItems: CartItem[] = [];
+
   // if any error occurred at fetching data, the page will redirect to 404 page
 
   private subscription: Subscription = new Subscription();
@@ -35,7 +39,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     public countryService: CountryService,
-    private timeDiffService: TimeDiffService
+    private timeDiffService: TimeDiffService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +48,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       /* part C : use route params to fetch the product and display details */
       this.route.params.subscribe((params) => {
         this.loadProductDetail(params['id']);
+      })
+    );
+    this.subscription.add(
+      this.cartService.getCartItems().subscribe((value) => {
+        this.cartItems = value;
+        console.log('cart items subscription:', value);
       })
     );
   }
@@ -107,5 +118,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.product.user.createAt as Date
       );
     return '';
+  }
+
+  get disabled() {
+    const cartQuantity = this.cartItems.find(
+      (item) => item.productId === this.product?.id
+    )?.quantity;
+    console.log('cartQuantity: ', cartQuantity);
+    if (cartQuantity !== undefined) {
+      return cartQuantity >= 9;
+    } else {
+      return false;
+    }
+  }
+
+  addToCart(): void {
+    if (this.product) {
+      const { id: productId, name, price } = this.product;
+      this.cartService.addItems({ name, price, productId, quantity: 1 });
+    }
   }
 }
