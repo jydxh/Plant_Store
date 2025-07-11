@@ -15,6 +15,7 @@ import { Property } from 'src/app/services/product.module';
 import { ProductService } from 'src/app/services/product.service';
 import { TimeDiffService } from 'src/app/time-diff.service';
 import { register } from 'swiper/element/bundle';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 register();
 
@@ -24,7 +25,7 @@ register();
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatSnackBarModule],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
   product: Property | undefined = undefined;
@@ -40,7 +41,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     public countryService: CountryService,
     private timeDiffService: TimeDiffService,
-    private cartService: CartService
+    private cartService: CartService,
+    private toast: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -78,6 +80,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  showToast(message: string, action: string = 'Close') {
+    this.toast.open(message, action, {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'right',
+    });
+  }
+
   get imageUrls() {
     if (this.product) {
       return this.product.image.map((i) => i.imageUrl);
@@ -136,6 +147,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     if (this.product) {
       const { id: productId, name, price } = this.product;
       this.cartService.addItems({ name, price, productId, quantity: 1 });
+      this.showToast('Added to cart successfully!');
     }
   }
 }
